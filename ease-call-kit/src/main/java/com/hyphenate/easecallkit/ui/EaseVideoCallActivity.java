@@ -75,6 +75,7 @@ import com.hyphenate.easecallkit.utils.EaseCallAction;
 import com.hyphenate.easecallkit.utils.EaseCallKitUtils;
 import com.hyphenate.easecallkit.utils.EaseCallState;
 import com.hyphenate.easecallkit.utils.EaseMsgUtils;
+import com.hyphenate.easecallkit.utils.Strings;
 import com.hyphenate.easecallkit.widget.EaseImageView;
 import com.hyphenate.easecallkit.widget.MyChronometer;
 import com.hyphenate.util.EMLog;
@@ -107,95 +108,96 @@ import io.agora.rtc.video.VideoEncoderConfiguration;
  */
 public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.OnClickListener{
 
-    private static final String TAG = EaseVideoCallActivity.class.getSimpleName();
+    public static final String TAG = EaseVideoCallActivity.class.getSimpleName();
 
-    private static final int PERMISSION_REQ_ID = 22;
-    private static final String[] REQUESTED_PERMISSIONS = {
+    public static final int PERMISSION_REQ_ID = 22;
+    public static final String[] REQUESTED_PERMISSIONS = {
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    private View rootView;
-    private Group comingBtnContainer;
-    private ImageButton refuseBtn;
-    private ImageButton answerBtn;
-    private ImageButton hangupBtn;
+    public View rootView;
+    public Group comingBtnContainer;
+    public ImageButton refuseBtn;
+    public ImageButton answerBtn;
+    public ImageButton hangupBtn;
 
-    private Group groupHangUp;
-    private Group groupUseInfo;
-    private Group groupOngoingSettings;
-    private TextView nickTextView;
-    private boolean isMuteState = false;
-    private boolean isHandsfreeState;
-    private ImageView muteImage;
-    private ImageView handsFreeImage;
-    private ImageButton switchCameraBtn;
-    private MyChronometer chronometer;
-    private boolean surfaceStateChange = false;
-    private EaseImageView avatarView;
-    private TextView call_stateView;
+    public Group groupHangUp;
+    public Group groupUseInfo;
+    public Group groupOngoingSettings;
+    public TextView nickTextView;
+    public boolean isMuteState = false;
+    public boolean isHandsfreeState;
+    public ImageView muteImage;
+    public ImageView handsFreeImage;
+    public ImageButton switchCameraBtn;
+    public MyChronometer chronometer;
+    public boolean surfaceStateChange = false;
 
-    private Group videoCallingGroup;
-    private Group voiceCallingGroup;
-    private TextView tv_nick_voice;
+    public TextView call_stateView;
 
-    private Group videoCalledGroup;
-    private Group voiceCalledGroup;
+    public Group videoCallingGroup;
+    public Group voiceCallingGroup;
+    public TextView tv_nick_voice;
 
-    private RelativeLayout video_transe_layout;
-    private RelativeLayout video_transe_comming_layout;
-    private ImageButton btn_voice_trans;
-    private TextView tv_call_state_voice;
-    private EaseImageView iv_avatar_voice;
-    private ImageButton float_btn;
+    public Group videoCalledGroup;
+    public Group voiceCalledGroup;
+
+    public RelativeLayout video_transe_layout;
+    public RelativeLayout video_transe_comming_layout;
+    public ImageButton btn_voice_trans;
+    public TextView tv_call_state_voice;
+    public TextView iv_avatar_voice;
+    public TextView avatarView;
+    public ImageButton float_btn;
 
     //判断是发起者还是被邀请
-    protected boolean isInComingCall;
+    public boolean isInComingCall;
     // Judge whether is ongoing call
-    protected boolean isOngoingCall;
-    protected String username;
-    protected String channelName;
+    public boolean isOngoingCall;
+    public String username;
+    public String channelName;
 
-    protected AudioManager audioManager;
-    protected Ringtone ringtone;
+    public AudioManager audioManager;
+    public Ringtone ringtone;
 
-    private boolean mMuted = false;
-    private boolean mCallEnd = false;
-    volatile private boolean mConfirm_ring = false;
-    private String tokenUrl;
-    private int remoteUId = 0;
-    private boolean changeFlag = true;
+    public boolean mMuted = false;
+    public boolean mCallEnd = false;
+    volatile public boolean mConfirm_ring = false;
+    public String tokenUrl;
+    public int remoteUId = 0;
+    public boolean changeFlag = true;
     boolean transVoice = false;
-    private String headUrl = null;
-    private Bitmap headBitMap;
-    private String ringFile;
-    private MediaPlayer mediaPlayer;
+    public String headUrl = null;
+    public Bitmap headBitMap;
+    public String ringFile;
+    public MediaPlayer mediaPlayer;
 
 
     // 视频通话画面显示控件，这里在新版中使用同一类型的控件，方便本地和远端视图切换
-    protected RelativeLayout localSurface_layout;
-    protected RelativeLayout oppositeSurface_layout;
-    private VideoCanvas mLocalVideo;
-    private VideoCanvas mRemoteVideo;
-    protected EaseCallType callType;
-    private View Voice_View;
-    private TimeHandler timehandler;
+    public RelativeLayout localSurface_layout;
+    public RelativeLayout oppositeSurface_layout;
+    public VideoCanvas mLocalVideo;
+    public VideoCanvas mRemoteVideo;
+    public EaseCallType callType;
+    public View Voice_View;
+    public TimeHandler timehandler;
 
-    private RtcEngine mRtcEngine;
-    private boolean isMuteVideo = false;
-    private String agoraAppId = null;
+    public RtcEngine mRtcEngine;
+    public boolean isMuteVideo = false;
+    public String agoraAppId = null;
     // Camera direction: front or back
-    private boolean isCameraFront;
+    public boolean isCameraFront;
 
     //用于防止多次打开请求悬浮框页面
-    private boolean requestOverlayPermission;
+    public boolean requestOverlayPermission;
 
     //加入频道Uid Map
-    private Map<Integer, EaseUserAccount> uIdMap = new HashMap<>();
+    public Map<Integer, EaseUserAccount> uIdMap = new HashMap<>();
     EaseCallKitListener listener = EaseCallKit.getInstance().getCallListener();
 
-    private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
+    public final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         @Override
         public void onError(int err) {
             super.onError(err);
@@ -385,7 +387,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         EaseCallKit.getInstance().getNotifier().reset();
     }
 
-    private void initParams(Bundle bundle){
+    public void initParams(Bundle bundle){
         if(bundle != null) {
             isInComingCall = bundle.getBoolean("isComingCall", false);
             username = bundle.getString("username");
@@ -410,8 +412,8 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         answerBtn = findViewById(R.id.btn_answer_call);
         hangupBtn = findViewById(R.id.btn_hangup_call);
         comingBtnContainer = findViewById(R.id.ll_coming_call);
-        avatarView = findViewById(R.id.iv_avatar);
-        iv_avatar_voice = findViewById(R.id.iv_avatar_voice);
+        avatarView = findViewById(R.id.iv_avatar_im);
+        iv_avatar_voice = findViewById(R.id.iv_avatar_voice_im);
 
         muteImage = (ImageView) findViewById(R.id.iv_mute);
         handsFreeImage = (ImageView) findViewById(R.id.iv_handsfree);
@@ -449,6 +451,13 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
             voiceCallingGroup.setVisibility(View.VISIBLE);
             hangupBtn.setVisibility(View.GONE);
             tv_nick_voice.setText(EaseCallKitUtils.getUserNickName(username));
+            if(!Strings.checkNull(username)&&!Strings.checkNull(EaseCallKitUtils.getUserNickName(username))){
+                tv_nick_voice.setText(EaseCallKitUtils.getUserNickName(username));
+                if (!Strings.checkNull(EaseCallKitUtils.getUserNickName(username).split("")[0])){
+                    avatarView.setText(EaseCallKitUtils.getUserNickName(username).split("")[0]);
+                    iv_avatar_voice.setText(EaseCallKitUtils.getUserNickName(username).split("")[0]);
+                }
+            }
         }
 
         video_transe_layout.setOnClickListener(this);
@@ -482,6 +491,14 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         call_stateView = (TextView)findViewById(R.id.tv_call_state) ;
 
         nickTextView.setText(EaseCallKitUtils.getUserNickName(username));
+        if(!Strings.checkNull(username)&&!Strings.checkNull(EaseCallKitUtils.getUserNickName(username))){
+            tv_nick_voice.setText(EaseCallKitUtils.getUserNickName(username));
+            if (!Strings.checkNull(EaseCallKitUtils.getUserNickName(username).split("")[0])){
+                avatarView.setText(EaseCallKitUtils.getUserNickName(username).split("")[0]);
+                iv_avatar_voice.setText(EaseCallKitUtils.getUserNickName(username).split("")[0]);
+
+            }
+        }
         localSurface_layout.setOnClickListener(this);
 
         Voice_View = findViewById(R.id.view_ring);
@@ -495,8 +512,8 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
             call_stateView.setText(getApplicationContext().getString(R.string.invite_you_for_audio_and_video_call));
             tv_call_state_voice.setText(getApplicationContext().getString(R.string.invite_you_for_audio_and_video_call));
         }else{
-            call_stateView.setText(getApplicationContext().getString(R.string.waiting_for_accept));
-            tv_call_state_voice.setText(getApplicationContext().getString(R.string.waiting_for_accept));
+            call_stateView.setText(getApplicationContext().getString(R.string.string_voice_text));
+            tv_call_state_voice.setText(getApplicationContext().getString(R.string.string_voice_text));
         }
 
         //如果是语音通话
@@ -510,7 +527,10 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
             Voice_View.setVisibility(View.VISIBLE);
             avatarView.setVisibility(View.VISIBLE);
         }else{
-            avatarView.setVisibility(View.GONE);
+            if (avatarView!=null){
+                avatarView.setVisibility(View.GONE);
+            }
+
         }
 
         audioManager = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
@@ -547,7 +567,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 来电话的状态
      */
-    private void makeComingStatus() {
+    public void makeComingStatus() {
         comingBtnContainer.setVisibility(View.VISIBLE);
         groupUseInfo.setVisibility(View.VISIBLE);
         if(callType == EaseCallType.SINGLE_VIDEO_CALL){
@@ -565,7 +585,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 通话中的状态
      */
-    private void makeOngoingStatus() {
+    public void makeOngoingStatus() {
         isOngoingCall = true;
         comingBtnContainer.setVisibility(View.INVISIBLE);
         groupUseInfo.setVisibility(View.INVISIBLE);
@@ -628,14 +648,14 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     }
 
 
-    private void initEngineAndJoinChannel() {
+    public void initEngineAndJoinChannel() {
         initializeEngine();
         setupVideoConfig();
         setupLocalVideo();
         joinChannel();
     }
 
-    private void initializeEngine() {
+    public void initializeEngine() {
         try {
             EaseCallKitConfig config =  EaseCallKit.getInstance().getCallKitConfig();
             if(config != null){
@@ -653,7 +673,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         }
     }
 
-    private void setupVideoConfig() {
+    public void setupVideoConfig() {
         if(EaseCallKit.getInstance().getCallType() == EaseCallType.SINGLE_VIDEO_CALL){
             mRtcEngine.enableVideo();
             mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(
@@ -667,7 +687,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         }
     }
 
-    private void setupLocalVideo() {
+    public void setupLocalVideo() {
         if(isFloatWindowShowing()) {
             return;
         }
@@ -680,7 +700,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     }
 
 
-    private void setupRemoteVideo(int uid) {
+    public void setupRemoteVideo(int uid) {
         SurfaceView view = RtcEngine.CreateRendererView(getBaseContext());
         oppositeSurface_layout.removeAllViews();
         oppositeSurface_layout.addView(view);
@@ -698,7 +718,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 加入频道
      */
-    private void joinChannel() {
+    public void joinChannel() {
         EaseCallKitConfig callKitConfig = EaseCallKit.getInstance().getCallKitConfig();
         if(listener != null && callKitConfig != null && callKitConfig.isEnableRTCToken()){
             listener.onGenerateToken(EMClient.getInstance().getCurrentUser(),channelName,  EMClient.getInstance().getOptions().getAppKey(), new EaseCallKitTokenCallback(){
@@ -721,7 +741,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         }
     }
 
-    private void changeCameraDirection(boolean isFront) {
+    public void changeCameraDirection(boolean isFront) {
         if(isCameraFront != isFront) {
             if(mRtcEngine != null){
                 mRtcEngine.switchCamera();
@@ -783,22 +803,22 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         } else if (id == R.id.iv_mute) { // mute
             if (isMuteState) {
                 // resume voice transfer
-                muteImage.setImageResource(R.drawable.call_mute_normal);
+                muteImage.setImageResource(R.mipmap.call_mute_normal_im);
                 mRtcEngine.muteLocalAudioStream(false);
                 isMuteState = false;
             } else {
                 // pause voice transfer
-                muteImage.setImageResource(R.drawable.call_mute_on);
+                muteImage.setImageResource(R.mipmap.call_mute_on);
                 mRtcEngine.muteLocalAudioStream(true);
                 isMuteState = true;
             }
         } else if (id == R.id.iv_handsfree) { // handsfree
             if (isHandsfreeState) {
-                handsFreeImage.setImageResource(R.drawable.em_icon_speaker_normal);
+                handsFreeImage.setImageResource(R.mipmap.em_icon_speaker_normal_im);
                 closeSpeakerOn();
                 isHandsfreeState = false;
             } else {
-                handsFreeImage.setImageResource(R.drawable.em_icon_speaker_on);
+                handsFreeImage.setImageResource(R.mipmap.em_icon_speaker_on);
                 openSpeakerOn();
                 isHandsfreeState = true;
             }
@@ -866,7 +886,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         }
     }
 
-    private void changeSurface(){
+    public void changeSurface(){
         if(changeFlag){
             SurfaceView remoteview = RtcEngine.CreateRendererView(getBaseContext());
             localSurface_layout.removeAllViews();
@@ -905,14 +925,14 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 离开频道
      */
-    private void leaveChannel() {
+    public void leaveChannel() {
         // 离开当前频道。
         if(mRtcEngine != null) {
             mRtcEngine.leaveChannel();
         }
     }
 
-    private boolean checkSelfPermission(String permission, int requestCode) {
+    public boolean checkSelfPermission(String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(this, permission) !=
                 PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
@@ -973,7 +993,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 增加LiveData监听
      */
-    protected void addLiveDataObserver(){
+    public void addLiveDataObserver(){
        observer=new Observer<BaseEvent>() {
            @Override
            public void onChanged(BaseEvent event) {
@@ -1148,7 +1168,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
      */
     HandlerThread callHandlerThread = new HandlerThread("callHandlerThread");
     { callHandlerThread.start(); }
-    protected Handler handler = new Handler(callHandlerThread.getLooper()) {
+    public Handler handler = new Handler(callHandlerThread.getLooper()) {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
@@ -1176,7 +1196,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
      * @param username
      * @param callType
      */
-    private void sendInviteeMsg(String username, EaseCallType callType){
+    public void sendInviteeMsg(String username, EaseCallType callType){
         //更新昵称 头像
         setUserJoinChannelInfo(username,0);
 
@@ -1263,7 +1283,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
      * 发送CMD回复信息
      * @param username
      */
-    private void  sendCmdMsg(BaseEvent event,String username){
+    public void  sendCmdMsg(BaseEvent event,String username){
         EaseCallKit.getInstance().sendCmdMsg(event, username, new EMCallBack() {
             @Override
             public void onSuccess() {
@@ -1341,7 +1361,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         });
     }
 
-    private class TimeHandler extends Handler {
+    public class TimeHandler extends Handler {
         private final int MSG_TIMER = 0;
         private DateFormat dateFormat = null;
         private int timePassed = 0;
@@ -1415,54 +1435,59 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
      * 加载用户配置头像
      * @return
      */
-    private void loadHeadImage() {
-        if(headUrl != null) {
-            if (headUrl.startsWith("http://") || headUrl.startsWith("https://")) {
-                new AsyncTask<String, Void, Bitmap>() {
-                    //该方法运行在后台线程中，因此不能在该线程中更新UI，UI线程为主线程
-                    @Override
-                    protected Bitmap doInBackground(String... params) {
-                        Bitmap bitmap = null;
-                        try {
-                            String url = params[0];
-                            URL HttpURL = new URL(url);
-                            HttpURLConnection conn = (HttpURLConnection) HttpURL.openConnection();
-                            conn.setDoInput(true);
-                            conn.connect();
-                            InputStream is = conn.getInputStream();
-                            bitmap = BitmapFactory.decodeStream(is);
-                            is.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return bitmap;
-                    }
-
-                    //在doInBackground 执行完成后，onPostExecute 方法将被UI 线程调用，
-                    // 后台的计算结果将通过该方法传递到UI线程，并且在界面上展示给用户.
-                    @Override
-                    protected void onPostExecute(Bitmap bitmap) {
-                        if (bitmap != null) {
-                            if (EaseCallKit.getInstance().getCallType() == EaseCallType.SINGLE_VIDEO_CALL) {
-                                avatarView.setImageBitmap(bitmap);
-                            } else {
-                                iv_avatar_voice.setImageBitmap(bitmap);
-                            }
-                        }
-                    }
-                }.execute(headUrl);
-            } else {
-                if(headBitMap == null){
-                    //该方法直接传文件路径的字符串，即可将指定路径的图片读取到Bitmap对象
-                    headBitMap = BitmapFactory.decodeFile(headUrl);
-                }
-                if (EaseCallKit.getInstance().getCallType() == EaseCallType.SINGLE_VIDEO_CALL) {
-                        avatarView.setImageBitmap(headBitMap);
-                    } else {
-                    iv_avatar_voice.setImageBitmap(headBitMap);
-                }
-            }
+    public void loadHeadImage() {
+        if (EaseCallKit.getInstance().getCallType() == EaseCallType.SINGLE_VIDEO_CALL) {
+            avatarView.setText("T");
+        } else {
+            iv_avatar_voice.setText("T");
         }
+//        if(headUrl != null) {
+//            if (headUrl.startsWith("http://") || headUrl.startsWith("https://")) {
+//                new AsyncTask<String, Void, Bitmap>() {
+//                    //该方法运行在后台线程中，因此不能在该线程中更新UI，UI线程为主线程
+//                    @Override
+//                    protected Bitmap doInBackground(String... params) {
+//                        Bitmap bitmap = null;
+//                        try {
+//                            String url = params[0];
+//                            URL HttpURL = new URL(url);
+//                            HttpURLConnection conn = (HttpURLConnection) HttpURL.openConnection();
+//                            conn.setDoInput(true);
+//                            conn.connect();
+//                            InputStream is = conn.getInputStream();
+//                            bitmap = BitmapFactory.decodeStream(is);
+//                            is.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        return bitmap;
+//                    }
+//
+//                    //在doInBackground 执行完成后，onPostExecute 方法将被UI 线程调用，
+//                    // 后台的计算结果将通过该方法传递到UI线程，并且在界面上展示给用户.
+//                    @Override
+//                    protected void onPostExecute(Bitmap bitmap) {
+//                        if (bitmap != null) {
+//                            if (EaseCallKit.getInstance().getCallType() == EaseCallType.SINGLE_VIDEO_CALL) {
+//                                avatarView.setImageBitmap(bitmap);
+//                            } else {
+//                                iv_avatar_voice.setImageBitmap(bitmap);
+//                            }
+//                        }
+//                    }
+//                }.execute(headUrl);
+//            } else {
+//                if(headBitMap == null){
+//                    //该方法直接传文件路径的字符串，即可将指定路径的图片读取到Bitmap对象
+//                    headBitMap = BitmapFactory.decodeFile(headUrl);
+//                }
+//                if (EaseCallKit.getInstance().getCallType() == EaseCallType.SINGLE_VIDEO_CALL) {
+//                        avatarView.setImageBitmap(headBitMap);
+//                    } else {
+//                    iv_avatar_voice.setImageBitmap(headBitMap);
+//                }
+//            }
+//        }
     }
 
     /**
@@ -1470,7 +1495,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
      * @param userName
      * @param uId
      */
-    private void setUserJoinChannelInfo(String userName,int uId){
+    public void setUserJoinChannelInfo(String userName,int uId){
         if (listener != null) {
             listener.onRemoteUserJoinChannel(channelName, userName, uId, new EaseGetUserAccountCallback() {
                 @Override
@@ -1494,7 +1519,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 更新本地头像昵称
      */
-    private void updateUserInfo(){
+    public void updateUserInfo(){
         //更新本地头像昵称
         runOnUiThread(new Runnable() {
             @Override
@@ -1504,13 +1529,21 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
                 loadHeadImage();
                 //昵称
                 tv_nick_voice.setText(EaseCallKitUtils.getUserNickName(username));
+                if(!Strings.checkNull(username)&&!Strings.checkNull(EaseCallKitUtils.getUserNickName(username))){
+                    tv_nick_voice.setText(EaseCallKitUtils.getUserNickName(username));
+                    if (!Strings.checkNull(EaseCallKitUtils.getUserNickName(username).split("")[0])){
+                        avatarView.setText(EaseCallKitUtils.getUserNickName(username).split("")[0]);
+                        iv_avatar_voice.setText(EaseCallKitUtils.getUserNickName(username).split("")[0]);
+
+                    }
+                }
             }
         });
     }
 
 
 
-    private void playRing(){
+    public void playRing(){
       if(ringFile != null){
            mediaPlayer = new MediaPlayer();
            try {
@@ -1533,7 +1566,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
       }
     }
 
-    private void stopPlayRing(){
+    public void stopPlayRing(){
         if(ringFile != null){
             if(mediaPlayer != null){
                 mediaPlayer.stop();
@@ -1570,7 +1603,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 开启扬声器
      */
-    protected void openSpeakerOn() {
+    public void openSpeakerOn() {
         try {
             if (!audioManager.isSpeakerphoneOn())
                 audioManager.setSpeakerphoneOn(true);
@@ -1583,7 +1616,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 关闭扬声器
      */
-    protected void closeSpeakerOn() {
+    public void closeSpeakerOn() {
         try {
             if (audioManager != null) {
                 if (audioManager.isSpeakerphoneOn())
@@ -1595,7 +1628,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         }
     }
 
-    private void resetState(){
+    public void resetState(){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -1612,7 +1645,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
     /**
      * 退出频道
      */
-    void exitChannel(){
+    public  void exitChannel(){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -1635,7 +1668,7 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         checkFloatIntent(intent);
     }
 
-    private void checkFloatIntent(Intent intent) {
+    public void checkFloatIntent(Intent intent) {
         // 防止activity在后台被start至前台导致window还存在
         if(isFloatWindowShowing()) {
             EaseCallFloatWindow.SingleCallInfo callInfo = EaseCallFloatWindow.getInstance().getSingleCallInfo();
@@ -1704,14 +1737,14 @@ public class EaseVideoCallActivity extends EaseBaseCallActivity implements View.
         }
     }
 
-    private void startCount() {
+    public void startCount() {
         if(chronometer != null) {
             chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
         }
     }
 
-    private void stopCount() {
+    public void stopCount() {
         if(chronometer != null) {
             chronometer.stop();
         }

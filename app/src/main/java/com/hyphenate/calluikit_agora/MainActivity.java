@@ -1,4 +1,4 @@
-package easemob.hyphenate.calluikit_agora;
+package com.hyphenate.calluikit_agora;
 
 import androidx.appcompat.app.AppCompatActivity;
 import easemob.hyphenate.calluikit_agora.R;

@@ -1,4 +1,4 @@
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:tools="http://schemas.android.com/tools"  tools:ignore="MissingTranslation" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="switch_camera">Change camera</string>
     <string name="answer">Answer</string>
     <string name="change_voice">Audio</string>
@@ -34,12 +34,21 @@
     <string name="waiting_for_accept">Waiting for the other party to accept the invitation</string>
     <string name="make_sure_leave">Are you sure you want to leave the current conversation?</string>
     <string name="invited_to_make_multi_party_call">invited you to a voice/video conference call</string>
-    <string name="invite_you_for_audio_and_video_call">invited you to a voice/video call</string>
+    <string name="invite_you_for_audio_and_video_call">invited you to a voice call</string>
     <string name="in_the_call">Call in progress</string>
     <string name="invite_you_for_video_call">invited you to a video call</string>
-    <string name="invite_you_for_audio_call">invited you to a voice call</string>
     <string name="determine">OK</string>
     <string name="cancel">Cancel</string>
     <string name="easemob">Easemob</string>
     <string name="contact_send_message">You have %2$s message(s) from %1$s contact(s)</string>
+
+
+    <string name="string_voice_text" >Wait for the other party to accept...</string>
+
+    <string name="invite_you_for_audio_call">invited you to a voice call</string>
+
+    <string name="string_mute">Mute</string>
+    <string name="string_hang_up">Hang up</string>
+    <string name="string_hands_free">Hands-free</string>
+
 </resources>
